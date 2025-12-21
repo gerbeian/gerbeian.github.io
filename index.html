@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给特别的人 | 动态表白网站</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f9c5d1 0%, #f0a7c7 50%, #e38ab3 100%);
+            color: #5a3d5c;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            position: relative;
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: #8a1c7c;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7a2a6a;
+            margin-bottom: 20px;
+        }
+        
+        /* 导航栏样式 */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+            padding: 10px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab-btn {
+            padding: 12px 25px;
+            margin: 5px;
+            border: none;
+            background-color: transparent;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #7a2a6a;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-btn:hover {
+            background-color: rgba(138, 28, 124, 0.1);
+        }
+        
+        .tab-btn.active {
+            background-color: #8a1c7c;
+            color: white;
+        }
+        
+        /* 内容区域样式 */
+        .content-section {
+            display: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #8a1c7c;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        /* 打字机效果样式 */
+        .typewriter-container {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .typewriter-text {
+            font-size: 1.8rem;
+            color: #8a1c7c;
+            font-weight: 600;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: #8a1c7c;
+            margin-left: 5px;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        /* 爱心样式 */
+        .heart-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .heart {
+            width: 100px;
+            height: 100px;
+            background-color: #ff4d8d;
+            position: relative;
+            transform: rotate(45deg);
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 77, 141, 0.3);
+        }
+        
+        .heart:hover {
+            transform: rotate(45deg) scale(1.2);
+            background-color: #ff1a75;
+        }
+        
+        .heart:before, .heart:after {
+            content: '';
+            width: 100px;
+            height: 100px;
+            background-color: #ff4d8d;
+            border-radius: 50%;
+            position: absolute;
+            transition: background-color 0.3s;
+        }
+        
+        .heart:hover:before, .heart:hover:after {
+            background-color: #ff1a75;
+        }
+        
+        .heart:before {
+            top: -50px;
+            left: 0;
+        }
+        
+        .heart:after {
+            top: 0;
+            left: -50px;
+        }
+        
+        .heart-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-align: center;
+            z-index: 10;
+            width: 80px;
+        }
+        
+        /* 照片墙样式 */
+        .photo-wall {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .photo-item {
+            border-radius: 10px;
+            overflow: hidden;
+            height: 200px;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .photo-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .photo-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(138, 28, 124, 0.8);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        
+        .photo-item:hover .photo-caption {
+            transform: translateY(0);
+        }
+        
+        /* 音乐播放器样式 */
+        .music-player {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50px;
+        }
+        
+        .music-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #8a1c7c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(138, 28, 124, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .music-btn:hover {
+            background-color: #6a1460;
+            transform: scale(1.1);
+        }
+        
+        .song-title {
+            font-weight: 600;
+            color: #8a1c7c;
+        }
+        
+        /* 飘落爱心样式 */
+        .falling-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .falling-heart {
+            position: absolute;
+            color: #ff4d8d;
+            font-size: 20px;
+            opacity: 0.7;
+            animation: falling linear infinite;
+        }
+        
+        @keyframes falling {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* 表单样式 */
+        .message-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #8a1c7c;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e38ab3;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #8a1c7c;
+        }
+        
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: #8a1c7c;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto 0;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(138, 28, 124, 0.3);
+        }
+        
+        .submit-btn:hover {
+            background-color: #6a1460;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(138, 28, 124, 0.4);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .typewriter-text {
+                font-size: 1.4rem;
+                height: 150px;
+            }
+            
+            .heart-container {
+                gap: 15px;
+            }
+            
+            .heart {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .heart:before, .heart:after {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .heart:before {
+                top: -40px;
+            }
+            
+            .heart:after {
+                left: -40px;
+            }
+            
+            .nav-tabs {
+                padding: 8px;
+            }
+            
+            .tab-btn {
+                padding: 10px 15px;
+                font-size: 1rem;
+            }
+            
+            .photo-wall {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .content-section {
+                padding: 20px;
+            }
+            
+            .typewriter-text {
+                font-size: 1.2rem;
+            }
+            
+            .photo-wall {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        /* 页脚样式 */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            color: #7a2a6a;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 飘落爱心背景 -->
+    <div class="falling-hearts" id="fallingHearts"></div>
+    
+    <div class="container">
+        <header>
+            <h1>给特别的人</h1>
+            <p class="subtitle">在这个特别的日子里，我想对你说...</p>
+        </header>
+        
+        <!-- 导航标签 -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-tab="home">❤️ 首页</button>
+            <button class="tab-btn" data-tab="confession">💌 表白信</button>
+            <button class="tab-btn" data-tab="memories">📷 美好回忆</button>
+            <button class="tab-btn" data-tab="message">✉️ 留言板</button>
+            <button class="tab-btn" data-tab="interactive">🎮 互动游戏</button>
+        </div>
+        
+        <!-- 首页内容 -->
+        <section id="home" class="content-section active">
+            <h2 class="section-title">欢迎来到我的心意空间</h2>
+            <div class="typewriter-container">
+                <div class="typewriter-text" id="typewriterText"></div>
+            </div>
+            
+            <div class="heart-container">
+                <div class="heart" data-message="你是我生命中最美的意外">
+                    <div class="heart-text">点击我</div>
+                </div>
+                <div class="heart" data-message="你的笑容是我的阳光">
+                    <div class="heart-text">点击我</div>
+                </div>
+                <div class="heart" data-message="我想和你一起看遍世间风景">
+                    <div class="heart-text">点击我</div>
+                </div>
+                <div class="heart" data-message="有你在的每一天都格外美好">
+                    <div class="heart-text">点击我</div>
+                </div>
+            </div>
+            
+            <div class="music-player">
+                <button class="music-btn" id="playBtn">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="music-btn" id="pauseBtn">
+                    <i class="fas fa-pause"></i>
+                </button>
+                <span class="song-title">浪漫钢琴曲 - 爱的礼赞</span>
+            </div>
+        </section>
+        
+        <!-- 表白信内容 -->
+        <section id="confession" class="content-section">
+            <h2 class="section-title">给亲爱的你</h2>
+            <div style="line-height: 1.8; font-size: 1.1rem;">
+                <p>亲爱的，</p>
+                <p>从我遇见你的那一刻起，我的世界就变得不一样了。你就像一束光，照亮了我平淡的生活，让每一天都充满了期待和惊喜。</p>
+                <p>我喜欢你笑起来的样子，眼睛弯弯的像月牙；我喜欢你说话的声音，温柔得能融化我的心；我喜欢你思考时的专注，认真得让我着迷。</p>
+                <p>和你在一起的每一刻，时间都过得特别快。我们一起分享快乐，一起面对困难，一起成长。这些点点滴滴，都深深地刻在我的心里。</p>
+                <p>我不知道未来会怎样，但我唯一确定的是，我希望我的未来有你。我想和你一起看日出日落，一起走过四季更迭，一起体验人生的酸甜苦辣。</p>
+                <p>你愿意给我这个机会，让我陪你走完余生吗？</p>
+                <p style="text-align: right; margin-top: 30px;">永远爱你的，<br><span style="font-family: 'Dancing Script', cursive; font-size: 1.5rem;">[你的名字]</span></p>
+            </div>
+        </section>
+        
+        <!-- 回忆内容 -->
+        <section id="memories" class="content-section">
+            <h2 class="section-title">我们的美好回忆</h2>
+            <p style="text-align: center; margin-bottom: 20px;">这些虚拟照片代表着我们共同的美好时刻（可替换为真实照片）</p>
+            <div class="photo-wall">
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="第一次见面">
+                    <div class="photo-caption">第一次见面</div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="一起看日落">
+                    <div class="photo-caption">一起看日落</div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="生日惊喜">
+                    <div class="photo-caption">生日惊喜</div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1529254479751-fbacb4c7a587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="海边漫步">
+                    <div class="photo-caption">海边漫步</div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="节日庆祝">
+                    <div class="photo-caption">节日庆祝</div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="日常小确幸">
+                    <div class="photo-caption">日常小确幸</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 留言板内容 -->
+        <section id="message" class="content-section">
+            <h2 class="section-title">给我留言吧</h2>
+            <p style="text-align: center; margin-bottom: 30px;">如果你有什么想对我说的，可以在这里留言哦~</p>
+            
+            <form class="message-form" id="messageForm">
+                <div class="form-group">
+                    <label for="name">你的名字：</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">留言内容：</label>
+                    <textarea id="messageContent" name="message" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">发送留言</button>
+            </form>
+            
+            <div id="messageDisplay" style="margin-top: 40px; padding: 20px; background-color: rgba(255, 255, 255, 0.7); border-radius: 15px; display: none;">
+                <h3 style="color: #8a1c7c; margin-bottom: 15px;">收到的留言：</h3>
+                <div id="messagesList"></div>
+            </div>
+        </section>
+        
+        <!-- 互动游戏内容 -->
+        <section id="interactive" class="content-section">
+            <h2 class="section-title">爱心收集小游戏</h2>
+            <p style="text-align: center; margin-bottom: 20px;">点击出现的爱心，看看你能收集多少颗！</p>
+            
+            <div style="text-align: center; margin-bottom: 30px;">
+                <p style="font-size: 1.2rem;">得分：<span id="score">0</span></p>
+                <p style="font-size: 1.2rem;">时间：<span id="timer">30</span>秒</p>
+                <button id="startGame" class="submit-btn" style="margin-top: 10px;">开始游戏</button>
+            </div>
+            
+            <div id="gameArea" style="height: 400px; background-color: rgba(255, 255, 255, 0.5); border-radius: 15px; position: relative; overflow: hidden; border: 2px dashed #e38ab3;">
+                <p style="text-align: center; padding-top: 180px; color: #8a1c7c;">游戏区域 - 点击开始游戏后爱心会出现</p>
+            </div>
+        </section>
+        
+        <footer>
+            <p>GerBeian用心制作 ❤️ 献给特别的人 | 2025年</p>
+        </footer>
+    </div>
+    
+    <!-- 音频元素 -->
+    <audio id="bgMusic" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-loving-you-117.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        // 打字机效果
+        const typewriterText = document.getElementById('typewriterText');
+        const messages = [
+            "遇见你是我一生中最幸运的事",
+            "你的笑容能照亮我所有的阴霾",
+            "我想和你一起度过余生",
+            "你是我心中最特别的人"
+        ];
+        let messageIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        
+        function typeWriter() {
+            const currentMessage = messages[messageIndex];
+            
+            if (!isDeleting && charIndex <= currentMessage.length) {
+                typewriterText.innerHTML = currentMessage.substring(0, charIndex) + '<span class="cursor"></span>';
+                charIndex++;
+                setTimeout(typeWriter, 100);
+            } else if (isDeleting && charIndex >= 0) {
+                typewriterText.innerHTML = currentMessage.substring(0, charIndex) + '<span class="cursor"></span>';
+                charIndex--;
+                setTimeout(typeWriter, 50);
+            } else {
+                isDeleting = !isDeleting;
+                if (!isDeleting) {
+                    messageIndex = (messageIndex + 1) % messages.length;
+                }
+                setTimeout(typeWriter, 1000);
+            }
+        }
+        
+        // 标签切换功能
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const contentSections = document.querySelectorAll('.content-section');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 移除所有活动类
+                tabBtns.forEach(b => b.classList.remove('active'));
+                contentSections.forEach(section => section.classList.remove('active'));
+                
+                // 添加活动类到当前按钮和对应内容
+                btn.classList.add('active');
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // 爱心点击效果
+        const hearts = document.querySelectorAll('.heart');
+        hearts.forEach(heart => {
+            heart.addEventListener('click', function() {
+                const message = this.getAttribute('data-message');
+                alert(message);
+                
+                // 添加动画效果
+                this.style.transform = 'rotate(45deg) scale(1.3)';
+                setTimeout(() => {
+                    this.style.transform = 'rotate(45deg) scale(1)';
+                }, 300);
+            });
+        });
+        
+        // 音乐播放器控制
+        const bgMusic = document.getElementById('bgMusic');
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        
+        playBtn.addEventListener('click', () => {
+            bgMusic.play();
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        });
+        
+        pauseBtn.addEventListener('click', () => {
+            bgMusic.pause();
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        });
+        
+        // 创建飘落爱心
+        function createFallingHearts() {
+            const fallingHeartsContainer = document.getElementById('fallingHearts');
+            
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('falling-heart');
+                heart.innerHTML = '❤';
+                
+                // 随机位置和大小
+                const size = Math.random() * 20 + 10;
+                const left = Math.random() * 100;
+                const duration = Math.random() * 10 + 10;
+                const delay = Math.random() * 5;
+                
+                heart.style.left = `${left}vw`;
+                heart.style.fontSize = `${size}px`;
+                heart.style.animationDuration = `${duration}s`;
+                heart.style.animationDelay = `${delay}s`;
+                
+                fallingHeartsContainer.appendChild(heart);
+            }
+        }
+        
+        // 留言表单处理
+        const messageForm = document.getElementById('messageForm');
+        const messageDisplay = document.getElementById('messageDisplay');
+        const messagesList = document.getElementById('messagesList');
+        let messagesData = [];
+        
+        messageForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const messageContent = document.getElementById('messageContent').value;
+            
+            // 保存留言
+            const newMessage = {
+                name: name,
+                message: messageContent,
+                time: new Date().toLocaleString()
+            };
+            
+            messagesData.push(newMessage);
+            
+            // 显示留言
+            displayMessages();
+            
+            // 清空表单
+            messageForm.reset();
+            
+            // 显示留言区域
+            messageDisplay.style.display = 'block';
+            
+            // 显示成功提示
+            alert('留言已发送！感谢你的心意❤️');
+        });
+        
+        function displayMessages() {
+            messagesList.innerHTML = '';
+            
+            messagesData.forEach(msg => {
+                const messageElement = document.createElement('div');
+                messageElement.style.padding = '15px';
+                messageElement.style.marginBottom = '15px';
+                messageElement.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                messageElement.style.borderRadius = '10px';
+                messageElement.style.borderLeft = '5px solid #8a1c7c';
+                
+                messageElement.innerHTML = `
+                    <p style="font-weight: 600; color: #8a1c7c;">${msg.name}</p>
+                    <p style="margin-top: 8px;">${msg.message}</p>
+                    <p style="margin-top: 8px; font-size: 0.8rem; color: #999;">${msg.time}</p>
+                `;
+                
+                messagesList.appendChild(messageElement);
+            });
+        }
+        
+        // 爱心收集游戏
+        const startGameBtn = document.getElementById('startGame');
+        const gameArea = document.getElementById('gameArea');
+        const scoreElement = document.getElementById('score');
+        const timerElement = document.getElementById('timer');
+        let score = 0;
+        let timeLeft = 30;
+        let gameTimer;
+        let gameActive = false;
+        
+        startGameBtn.addEventListener('click', startGame);
+        
+        function startGame() {
+            if (gameActive) return;
+            
+            gameActive = true;
+            score = 0;
+            timeLeft = 30;
+            scoreElement.textContent = score;
+            timerElement.textContent = timeLeft;
+            
+            // 清空游戏区域
+            gameArea.innerHTML = '';
+            gameArea.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+            
+            // 开始计时
+            gameTimer = setInterval(updateTimer, 1000);
+            
+            // 生成爱心
+            generateHearts();
+            
+            // 禁用开始按钮
+            startGameBtn.disabled = true;
+            startGameBtn.textContent = '游戏中...';
+            startGameBtn.style.opacity = '0.7';
+        }
+        
+        function updateTimer() {
+            timeLeft--;
+            timerElement.textContent = timeLeft;
+            
+            if (timeLeft <= 0) {
+                endGame();
+            }
+        }
+        
+        function generateHearts() {
+            if (!gameActive) return;
+            
+            // 随机生成1-3个爱心
+            const heartCount = Math.floor(Math.random() * 3) + 1;
+            
+            for (let i = 0; i < heartCount; i++) {
+                createGameHeart();
+            }
+            
+            // 随机时间后再次生成
+            const nextGeneration = Math.random() * 1000 + 500;
+            setTimeout(generateHearts, nextGeneration);
+        }
+        
+        function createGameHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤';
+            heart.style.position = 'absolute';
+            heart.style.color = '#ff4d8d';
+            heart.style.fontSize = '40px';
+            heart.style.cursor = 'pointer';
+            
+            // 随机位置
+            const maxX = gameArea.clientWidth - 40;
+            const maxY = gameArea.clientHeight - 40;
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+            
+            heart.style.left = `${x}px`;
+            heart.style.top = `${y}px`;
+            
+            // 点击事件
+            heart.addEventListener('click', function() {
+                score++;
+                scoreElement.textContent = score;
+                
+                // 添加点击效果
+                this.style.transform = 'scale(1.5)';
+                this.style.opacity = '0.7';
+                
+                setTimeout(() => {
+                    this.remove();
+                }, 200);
+            });
+            
+            gameArea.appendChild(heart);
+            
+            // 5秒后自动消失
+            setTimeout(() => {
+                if (heart.parentNode) {
+                    heart.remove();
+                }
+            }, 5000);
+        }
+        
+        function endGame() {
+            gameActive = false;
+            clearInterval(gameTimer);
+            
+            // 显示游戏结果
+            gameArea.innerHTML = `
+                <div style="text-align: center; padding-top: 150px;">
+                    <h3 style="color: #8a1c7c;">游戏结束！</h3>
+                    <p style="font-size: 1.2rem; margin-top: 10px;">你的得分：${score}</p>
+                    <p style="margin-top: 20px;">${getGameMessage(score)}</p>
+                </div>
+            `;
+            
+            // 启用开始按钮
+            startGameBtn.disabled = false;
+            startGameBtn.textContent = '重新开始游戏';
+            startGameBtn.style.opacity = '1';
+        }
+        
+        function getGameMessage(score) {
+            if (score >= 30) return "太棒了！你收集了这么多爱心，一定非常用心！";
+            if (score >= 20) return "很不错！你对爱心的敏感度很高哦！";
+            if (score >= 10) return "挺好的！继续努力可以收集更多爱心！";
+            return "没关系，下次可以做得更好！";
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 启动打字机效果
+            setTimeout(typeWriter, 1000);
+            
+            // 创建飘落爱心
+            createFallingHearts();
+            
+            // 自动播放音乐（需要用户交互，所以先注释掉）
+            // bgMusic.play().catch(e => console.log("自动播放被阻止，需要用户交互"));
+            
+            // 添加示例留言
+            messagesData = [
+                { name: "小明", message: "这个网站太浪漫了！祝你成功！", time: "2023-10-01 10:30" },
+                { name: "小芳", message: "好感动，你真是个有心人！", time: "2023-10-02 14:20" }
+            ];
+            displayMessages();
+            messageDisplay.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
